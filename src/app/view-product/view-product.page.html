@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>view-product</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-label>{{product.nombre}}</ion-label>
+  <ion-label>{{product.precio}}</ion-label>
+  <ion-label>{{product.descripcion}}</ion-label>
+  <img [src]="product.photo" alt="">
+</ion-content>
