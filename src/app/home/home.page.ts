@@ -11,23 +11,31 @@ import { NavigationExtras, Router } from '@angular/router';
 })
 export class HomePage {
 
-  public products:Product[];
+  public products: Product[];
 
 
-  constructor(private productService:ProductService, private router:Router) {
-  
+  constructor(private productService: ProductService, private router: Router) {
+
     this.products = productService.getProducts();
   }
 
   public getProductByID(clave: string): void {
     this.router.navigate(['/view-product'],
-    {
-      queryParams:{clave:clave}
-    }
+      {
+        queryParams: { clave: clave }
+      }
     )
   }
 
-  goToCar(){
-    
+  public addToCart(pos:number):void{
+    this.productService.addToCart(pos);
+  }
+
+  public goToCar() {
+    this.router.navigate(['/view-cart'])
+  }
+
+  public addNewProduct():void{
+    this.router.navigate(['/view-create-product'])
   }
 }

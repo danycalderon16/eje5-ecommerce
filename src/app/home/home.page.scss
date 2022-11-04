@@ -25,7 +25,18 @@
 #container a {
   text-decoration: none;
 }
-img {
+.product_img {
   height: 100px;
   height: 100px;
+}
+
+.content{
+  margin-top: 150px;
+}
+
+ion-card-title:hover,
+ion-card-content:hover,
+.product_img
+{
+  cursor: pointer;
 }

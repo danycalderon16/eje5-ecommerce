@@ -1,0 +1,28 @@
+<ion-header translucent no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="dark">
+        <ion-back-button></ion-back-button>
+        Carrito de compras
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of productsInCar;let i = index">
+        <ion-item *ngIf="item.inCar>0">
+          <ion-label>{{item.nombre}}</ion-label>
+          <ion-label>{{item.precio}}</ion-label>
+          <ion-label>{{item.descripcion}}</ion-label>
+          <img class="product_img" [src]="item.photo" alt="">
+          <ion-chip>
+            <ion-label>{{item.inCar}}</ion-label>
+          </ion-chip>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+</ion-content>

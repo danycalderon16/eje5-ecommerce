@@ -11,19 +11,27 @@ export class ProductService {
       {
         id: "1000",
         nombre: 'Coca-cola',
-        descripcion: 'Es refrescante',
-        precio: 10,
-        photo: 'https://picsum.photos/200',
+        descripcion: 'Refresco de 600 ml',
+        precio: 32,
+        photo: 'https://th.bing.com/th/id/OIP.tPOgjSGAlbpRvl_qL4i1AgAAAA?pid=ImgDet&rs=1',
         inCar:0
       },
       {
         id: "1001",
-        nombre: 'Pepse',
-        descripcion: 'Es refrescante',
-        precio: 10,
-        photo: 'https://picsum.photos/200',
+        nombre: 'Pepsi',
+        descripcion: 'Refresco pepsi de 600 ml',
+        precio: 28,
+        photo: 'https://www.movil.farmaciasguadalajara.com/wcsstore/FGCAS/wcs/products/819964_S_1280_F.jpg',
         inCar:2
-      }
+      },
+      {
+        id: "1003",
+        nombre: 'Triki trakes',
+        descripcion: 'Deliciosas galletas con chispas sabor a chocolate',
+        precio: 15,
+        photo: 'https://las.comercialtrevino.com/wp-content/uploads/2021/08/5743.jpg',
+        inCar:2
+      },
     ]
   }
   public getProducts(): Product[] {
@@ -43,6 +51,9 @@ export class ProductService {
     });
 
     return item;
+  }
+  public addToCart(pos:number):void{
+    this.products[pos].inCar++;
   }
 
 }

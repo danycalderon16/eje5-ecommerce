@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ViewCarPageRoutingModule } from './view-car-routing.module';
+import { ViewCartPageRoutingModule } from './view-cart-routing.module';
 
-import { ViewCarPage } from './view-car.page';
+import { ViewCartPage } from './view-cart.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ViewCarPageRoutingModule
+    ViewCartPageRoutingModule
   ],
-  declarations: [ViewCarPage]
+  declarations: [ViewCartPage]
 })
-export class ViewCarPageModule {}
+export class ViewCartPageModule {}

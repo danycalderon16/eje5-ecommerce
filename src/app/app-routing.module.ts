@@ -15,9 +15,14 @@ const routes: Routes = [
     path: 'view-product',
     loadChildren: () => import('./view-product/view-product.module').then( m => m.ViewProductPageModule)
   },
+
   {
-    path: 'view-car',
-    loadChildren: () => import('./view-car/view-car.module').then( m => m.ViewCarPageModule)
+    path: 'view-cart',
+    loadChildren: () => import('./view-cart/view-cart.module').then( m => m.ViewCartPageModule)
+  },
+  {
+    path: 'view-create-product',
+    loadChildren: () => import('./view-create-product/view-create-product.module').then( m => m.ViewCreateProductPageModule)
   },
 ];
 

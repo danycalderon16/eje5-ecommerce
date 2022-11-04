@@ -7,22 +7,41 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div id="container">
-    <ion-list>
-      <ion-item-sliding  *ngFor="let item of products;let i = index">
-        <ion-item  (click)="getProductByID(item.id)">
-        <ion-label>{{item.nombre}}</ion-label>
-        <ion-label>{{item.precio}}</ion-label>
-        <ion-label>{{item.descripcion}}</ion-label>
-        <img [src]="item.photo" alt="">
-        </ion-item>
-      </ion-item-sliding>
-    </ion-list>
-  </div>
+  <div class="content" id="container">
+    <ion-grid [fixed]="true">
+      <ion-row>
+        <ion-col size="12" size-xs="12" size-sm="6" size-md="4" size-lg="4" *ngFor="let item of products;let i = index">
+          <ion-card>
+            <img class="product_img" [src]="item.photo" alt="" (click)="getProductByID(item.id)">
+            <ion-card-header>
+              <ion-card-title (click)="getProductByID(item.id)">{{item.nombre}}</ion-card-title>
+              <ion-card-subtitle color="danger">${{item.precio}}
+                <ion-chip (click)="addToCart(i)">
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="goToCar()" >
+                  <ion-icon name="cart-outline"></ion-icon>
+                  <ion-label>Agregar al carrito</ion-label>
+                </ion-chip>
+              </ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content (click)="getProductByID(item.id)">
+              {{item.descripcion}}
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="chevron-up-circle"></ion-icon>
     </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="goToCar()">
+        <ion-icon name="cart"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="addNewProduct()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
   </ion-fab>
 </ion-content>
