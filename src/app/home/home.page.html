@@ -15,7 +15,8 @@
             <img class="product_img" [src]="item.photo" alt="" (click)="getProductByID(item.id)">
             <ion-card-header>
               <ion-card-title (click)="getProductByID(item.id)">{{item.nombre}}</ion-card-title>
-              <ion-card-subtitle color="danger">${{item.precio}}
+              <ion-card-subtitle color="success">${{item.precio}}</ion-card-subtitle>
+              <ion-card-subtitle>
                 <ion-chip (click)="addToCartByID(item.id)">
                   <ion-icon name="cart-outline"></ion-icon>
                   <ion-label>Agregar al carrito</ion-label>
