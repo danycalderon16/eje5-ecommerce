@@ -16,8 +16,7 @@
             <ion-card-header>
               <ion-card-title (click)="getProductByID(item.id)">{{item.nombre}}</ion-card-title>
               <ion-card-subtitle color="danger">${{item.precio}}
-                <ion-chip (click)="addToCart(i)">
-
+                <ion-chip (click)="addToCartByID(item.id)">
                   <ion-icon name="cart-outline"></ion-icon>
                   <ion-label>Agregar al carrito</ion-label>
                 </ion-chip>

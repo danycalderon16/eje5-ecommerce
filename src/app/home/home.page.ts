@@ -14,7 +14,8 @@ export class HomePage {
   public products: Product[];
 
 
-  constructor(private productService: ProductService, private router: Router) {
+  constructor(private productService: ProductService, private router: Router,
+    private toastController: ToastController,private alertController: AlertController) {
 
     this.products = productService.getProducts();
   }
@@ -27,8 +28,31 @@ export class HomePage {
     )
   }
 
-  public addToCart(pos:number):void{
-    this.productService.addToCart(pos);
+  async presentToast(position: 'top' | 'middle' | 'bottom', message:string,callback) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      position,
+      cssClass: 'custom-toast',
+      buttons: [
+        {
+          text: 'Ver carrito',
+          handler: () => {               
+            callback();
+          }
+        }
+      ]
+    });
+
+    await toast.present();
+  }
+  
+  
+  public addToCartByID(id:string):void{
+    this.productService.addToCartByID(id);
+    this.presentToast('bottom','Se agrego el producto corretamente',()=>{
+      this.goToCar();
+    });
   }
 
   public goToCar() {

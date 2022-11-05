@@ -11,18 +11,74 @@
 
 <ion-content [fullscreen]="true">
   <div id="container">
-    <ion-list>
-      <ion-item-sliding *ngFor="let item of productsInCar;let i = index">
-        <ion-item *ngIf="item.inCar>0">
-          <ion-label>{{item.nombre}}</ion-label>
-          <ion-label>{{item.precio}}</ion-label>
-          <ion-label>{{item.descripcion}}</ion-label>
-          <img class="product_img" [src]="item.photo" alt="">
-          <ion-chip>
-            <ion-label>{{item.inCar}}</ion-label>
-          </ion-chip>
-        </ion-item>
+    <ion-list>    
+      <ion-item-sliding *ngFor="let item of productsInCar;let i = index">       
+        <ion-item class="item_content" *ngIf="item.inCar>0">
+          <ion-card>
+            <div class="parent" >
+              <div class="div1"> <img class="product_img" [src]="item.photo" alt=""></div>
+              <div class="div2">
+                <ion-text color="primary">
+                  <h2>{{item.nombre}}</h2>
+                </ion-text>
+                <p>
+                  <ion-text>{{item.descripcion}}</ion-text>
+                </p>
+              </div>
+              <div class="div3">
+                <ion-button fill="outline" shape="round" (click)="substractItem(item.id)">-</ion-button>
+                <ion-label>{{item.inCar}}</ion-label>
+                <ion-button fill="outline" shape="round" (click)="addItem(item.id)">+</ion-button>
+              </div>
+              <div class="div4">
+                <ion-label color="success">$ {{item.precio*item.inCar}}</ion-label>
+              </div>
+            </div>
+          </ion-card>
+        </ion-item>    
+        <ion-item-options>
+          <ion-item-option color="danger" (click)="removeItem(item.id)">
+            <ion-icon slot="bottom" name="trash" ></ion-icon>
+            Eliminar
+          </ion-item-option>
+        </ion-item-options>
       </ion-item-sliding>
     </ion-list>
+
+    <!-- <ion-card *ngFor="let item of productsInCar;let i = index">
+      <div class="parent" *ngIf="item.inCar>0">
+        <div class="div1"> <img class="product_img" [src]="item.photo" alt=""></div>
+        <div class="div2">
+          <ion-text color="primary">
+            <h2>{{item.nombre}}</h2>
+          </ion-text>
+          <p>
+            <ion-text>{{item.descripcion}}</ion-text>
+          </p>
+        </div>
+        <div class="div3">
+          <ion-button fill="outline" shape="round" (click)="substractItem(item.id)">-</ion-button>
+          <ion-label>{{item.inCar}}</ion-label>
+          <ion-button fill="outline" shape="round" (click)="addItem(item.id)">+</ion-button>
+        </div>
+        <div class="div4">
+          <ion-label color="success">$ {{item.precio*item.inCar}}</ion-label>
+        </div>
+      </div>
+      <ion-item-options>
+        <ion-item-option color="danger">
+          <ion-icon slot="bottom" name="trash"></ion-icon>
+          Delete
+        </ion-item-option>
+      </ion-item-options>
+    </ion-card> -->
+
+    <div class="cartPrice">
+      <ion-label>Total con envio</ion-label>
+      <ion-label color="primary">{{cartPrice}}</ion-label>
+    </div>
+    <ion-button expand="block"  shape="round">
+      Comprar
+    </ion-button>
   </div>
 </ion-content>
