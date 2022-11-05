@@ -28,7 +28,7 @@ export class HomePage {
     )
   }
 
-  async presentToast(position: 'top' | 'middle' | 'bottom', message:string,callback) {
+  public async presentToast(position: 'top' | 'middle' | 'bottom', message:string,callback) {
     const toast = await this.toastController.create({
       message,
       duration: 2000,

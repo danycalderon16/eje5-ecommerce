@@ -15,4 +15,8 @@
   <ion-label>{{product.precio}}</ion-label>
   <ion-label>{{product.descripcion}}</ion-label>
   <img [src]="product.photo" alt="">
+  <ion-chip (click)="addToCartByID(product.id)">
+    <ion-icon name="cart-outline"></ion-icon>
+    <ion-label>Agregar al carrito</ion-label>
+  </ion-chip>
 </ion-content>
