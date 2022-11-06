@@ -1,22 +1,23 @@
-<ion-header translucent no-border>
+<ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button color="dark">
-        <ion-back-button></ion-back-button>
-        {{product.nombre}}
-      </ion-button>
-    </ion-buttons>
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>informacion de  {{product.nombre}}</ion-title>
   </ion-toolbar>
+
 </ion-header>
 
-
-<ion-content [fullscreen]="true">
-  <ion-label>{{product.nombre}}</ion-label>
-  <ion-label>{{product.precio}}</ion-label>
-  <ion-label>{{product.descripcion}}</ion-label>
-  <img [src]="product.photo" alt="">
-  <ion-chip (click)="addToCartByID(product.id)">
-    <ion-icon name="cart-outline"></ion-icon>
-    <ion-label>Agregar al carrito</ion-label>
-  </ion-chip>
+<ion-content class="center">
+  <ion-card class="al">
+      <img [src]="product.photo"  width="300px" height="300px" />
+      <ion-card-content class="center">
+          <h2>
+              Descripción: {{product.descripcion}}
+          </h2>
+          <h2>
+              precio: {{product.precio}} $
+          </h2>
+      </ion-card-content>
+  </ion-card>
 </ion-content>
