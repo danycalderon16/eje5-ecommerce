@@ -3,11 +3,23 @@
     <ion-buttons slot="start">
       <ion-button color="dark">
         <ion-back-button></ion-back-button>
-       Crear producto
+        <ion-label>¡Agrega un producto!</ion-label>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-
+  <ion-item>
+    <ion-input placeholder="Nombre del Producto" [(ngModel)]="nombre"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input placeholder="Descripción" [(ngModel)]="descripcion"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input placeholder="Precio" [(ngModel)]="precio"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input placeholder="Imagen del producto" [(ngModel)]="imagen"></ion-input>
+  </ion-item>
+  <ion-button (click)="addProduct1()">Agregar el producto</ion-button>
 </ion-content>

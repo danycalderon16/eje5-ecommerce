@@ -22,7 +22,7 @@ export class ProductService {
         descripcion: 'Refresco pepsi de 600 ml',
         precio: 28,
         photo: 'https://www.movil.farmaciasguadalajara.com/wcsstore/FGCAS/wcs/products/819964_S_1280_F.jpg',
-        inCar: 2
+        inCar: 0
       },
       {
         id: "1003",
@@ -30,15 +30,17 @@ export class ProductService {
         descripcion: 'Deliciosas galletas con chispas sabor a chocolate',
         precio: 15,
         photo: 'https://las.comercialtrevino.com/wp-content/uploads/2021/08/5743.jpg',
-        inCar: 2
+        inCar: 0
       },
     ]
   }
   public getProducts(): Product[] {
     return this.products
   }
-  public addProduct(product: Product) {
-    this.products.push(product);
+  public addProduct(nombre: string, descripcion : string, precio : number, imagen : string) {
+    let gId = ((parseInt(this.products[this.products.length-1].id))+1).toString()
+    this.products.push({id:gId,nombre:nombre,descripcion:descripcion,precio:precio,photo:imagen,inCar:0});
+    console.log(gId)
   }
 
   public removeProduct(pos: number) {
