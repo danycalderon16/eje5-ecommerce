@@ -25,7 +25,7 @@ export class ViewCartPage implements OnInit {
 
   async removeItem(id: string) {
     const alert = await this.alertController.create({
-      header: '¿Está seguro de borrar esta prodcuto del carrito?',
+      header: '¿Está seguro de borrar este prodcuto del carrito?',
       buttons: [
         {
           text: 'Cancelar',

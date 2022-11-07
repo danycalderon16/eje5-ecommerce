@@ -22,7 +22,7 @@ export class ProductService {
         descripcion: 'Refresco pepsi de 600 ml',
         precio: 28,
         photo: 'https://www.movil.farmaciasguadalajara.com/wcsstore/FGCAS/wcs/products/819964_S_1280_F.jpg',
-        inCar: 0
+        inCar: 1
       },
       {
         id: "1003",
@@ -30,7 +30,7 @@ export class ProductService {
         descripcion: 'Deliciosas galletas con chispas sabor a chocolate',
         precio: 15,
         photo: 'https://las.comercialtrevino.com/wp-content/uploads/2021/08/5743.jpg',
-        inCar: 0
+        inCar: 3
       },
     ]
   }

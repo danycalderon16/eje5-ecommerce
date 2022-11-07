@@ -31,7 +31,7 @@
                 <ion-button fill="outline" shape="round" (click)="addItem(item.id)">+</ion-button>
               </div>
               <div class="div4">
-                <ion-label color="success">$ {{item.precio*item.inCar}}</ion-label>
+                <ion-label color="success">{{item.precio*item.inCar | currency }}</ion-label>
               </div>
             </div>
           </ion-card>

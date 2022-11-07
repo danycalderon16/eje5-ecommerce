@@ -31,9 +31,9 @@ ion-card {
 
 .div3 {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     grid-area: 1 / 3 / 2 / 4;
-
+    margin: 0 30px;
     ion-label {
         align-self: center;
     }
@@ -46,8 +46,10 @@ ion-card {
 
 .div4 {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     grid-area: 2 / 3 / 3 / 4;
+    margin: 0 30px;
+
 
     ion-label {
         font-size: 20px;
