@@ -21,8 +21,13 @@ export class HomePage {
     private toastController: ToastController,
     private alertController: AlertController,
     private authService: AuthService,) {
-      // this.user = authService.getCurrentUser()
-      this.products = productService.getProducts();
+      this.user = authService.getCurrentUser()
+      this.productService.getProducts().subscribe(res => {
+        this.products = res;      
+        if(this.products.length===0){
+          this.products = productService.products;
+        }        
+      });
   }
 
   public getProductByID(clave: string): void {
@@ -64,7 +69,7 @@ export class HomePage {
 
 
   public addToCartByID(id: string): void {
-    this.productService.addToCartByID(id);
+    // this.productService.addToCartByID(id);
     this.presentToast('bottom', 'Se agrego el producto corretamente', () => {
       this.goToCar();
     });

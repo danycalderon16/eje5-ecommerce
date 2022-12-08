@@ -3,13 +3,15 @@ import { Product } from '../models/producto';
 import { map } from "rxjs/operators";
 import { AngularFirestore } from "@angular/fire/compat/firestore";
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private products: Product[]
-  constructor(private firestore: AngularFirestore) {
+  public products: Product[]
+  constructor(private firestore: AngularFirestore,
+    private auth:AuthService) {
     this.products = [
       {
         id: "1000",
@@ -25,7 +27,7 @@ export class ProductService {
         descripcion: 'Refresco pepsi de 600 ml',
         precio: 28,
         photo: 'https://www.movil.farmaciasguadalajara.com/wcsstore/FGCAS/wcs/products/819964_S_1280_F.jpg',
-        inCar: 1
+        inCar: 0
       },
       {
         id: "1003",
@@ -33,13 +35,22 @@ export class ProductService {
         descripcion: 'Deliciosas galletas con chispas sabor a chocolate',
         precio: 15,
         photo: 'https://las.comercialtrevino.com/wp-content/uploads/2021/08/5743.jpg',
-        inCar: 3
+        inCar: 0
       },
     ]
   }
-  public getProducts(): Product[] {
-    return this.products
+  public getProducts(): Observable<Product[]> {
+    return this.firestore.collection(`users/${this.auth.getCurrentUser().uid}/products`).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Product;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
   }
+
   public async addProduct(product: Product): Promise<any> {
     const id = new Date().valueOf().toString();
     return new Promise((resolve, reject) => {

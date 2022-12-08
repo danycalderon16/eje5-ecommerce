@@ -15,7 +15,7 @@ export class ViewCartPage implements OnInit {
   public cartPrice: number;
 
   constructor(private productService: ProductService, private toastController: ToastController, private alertController: AlertController) {
-    this.productsInCar = productService.getProducts();
+    // this.productsInCar = productService.getProducts();
     this.cartPrice = productService.calcularCartPrice()
   }
 
