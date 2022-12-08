@@ -21,7 +21,7 @@ export class HomePage {
     private toastController: ToastController,
     private alertController: AlertController,
     private authService: AuthService,) {
-      this.user = authService.getCurrentUser()
+      // this.user = authService.getCurrentUser()
       this.products = productService.getProducts();
   }
 
@@ -47,6 +47,16 @@ export class HomePage {
           }
         }
       ]
+    });
+
+    await toast.present();
+  }
+  public async simpleToast(position: 'top' | 'middle' | 'bottom', message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      position,
+      cssClass: 'custom-toast'     
     });
 
     await toast.present();
@@ -86,9 +96,9 @@ export class HomePage {
           handler: () => {
             this.authService.logOut().then(res => {
               console.log(res);
-              this.router.navigate(['..']);
+              this.router.navigate(['login']);
             });
-            this.presentToast('bottom', `Adios ${this.user.displayName}`, 300);
+            this.simpleToast('bottom', `Adios ${this.user.displayName}`);
           },
         },
       ],

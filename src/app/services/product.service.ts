@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/producto';
+import { map } from "rxjs/operators";
+import { AngularFirestore } from "@angular/fire/compat/firestore";
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   private products: Product[]
-  constructor() {
+  constructor(private firestore: AngularFirestore) {
     this.products = [
       {
         id: "1000",
@@ -37,10 +40,16 @@ export class ProductService {
   public getProducts(): Product[] {
     return this.products
   }
-  public addProduct(nombre: string, descripcion : string, precio : number, imagen : string) {
-    let gId = ((parseInt(this.products[this.products.length-1].id))+1).toString()
-    this.products.push({id:gId,nombre:nombre,descripcion:descripcion,precio:precio,photo:imagen,inCar:0});
-    console.log(gId)
+  public async addProduct(product: Product): Promise<any> {
+    const id = new Date().valueOf().toString();
+    return new Promise((resolve, reject) => {
+      this.firestore.collection(`users/6mnGoaO6v8YjBSqFwbXrugSt6bQ2/products`).add(product)
+        .then(result => {
+          resolve(result);
+        }).catch(err => {
+          reject(err);
+        });
+    });
   }
 
   public removeProduct(pos: number) {
@@ -55,33 +64,33 @@ export class ProductService {
     return item;
   }
   public removeItemInCart(id: string): void {
-    let i:number;
-    this.products.forEach((product,index)=>{
-      if(product.id === id) i = index;
+    let i: number;
+    this.products.forEach((product, index) => {
+      if (product.id === id) i = index;
     })
-    console.log(i);    
+    console.log(i);
     this.products[i].inCar = 0;
   }
   public addToCartByID(id: string): void {
-    let i:number;
-    this.products.forEach((product,index)=>{
-      if(product.id === id) i = index;
+    let i: number;
+    this.products.forEach((product, index) => {
+      if (product.id === id) i = index;
     })
-    console.log(i);    
+    console.log(i);
     this.products[i].inCar++;
   }
   public subtractToCartByID(id: string): void {
-    let i:number;
-    this.products.forEach((product,index)=>{
-      if(product.id === id) i = index;
+    let i: number;
+    this.products.forEach((product, index) => {
+      if (product.id === id) i = index;
     })
-    console.log(i);    
+    console.log(i);
     this.products[i].inCar--;
   }
 
 
   public calcularCartPrice(): number {
-    return this.products.reduce((acc, item) => acc + item.precio*item.inCar, 0)
+    return this.products.reduce((acc, item) => acc + item.precio * item.inCar, 0)
   }
 
 }
