@@ -1,11 +1,12 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
+  <ion-toolbar color="warning">
+    <ion-title color="light">
       Productos
     </ion-title>
+    <ion-text slot="end" color="light">{{user.displayName}}</ion-text>
     <ion-buttons slot="end">
       <ion-button (click)="logOut()">
-        SALIR
+        <ion-icon color="light" name="log-out"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -38,9 +39,9 @@
       </ion-row>
     </ion-grid>
   </div>
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button>
-      <ion-icon name="chevron-up-circle"></ion-icon>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" color="warning">
+    <ion-fab-button color="warning">
+      <ion-icon color="light" name="chevron-up-circle"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
       <ion-fab-button (click)="goToCar()">

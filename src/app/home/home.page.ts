@@ -4,6 +4,7 @@ import { ProductService } from '../services/product.service';
 import { AlertController, ToastController } from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { User } from 'firebase/auth';
 
 @Component({
   selector: 'app-home',
@@ -13,14 +14,15 @@ import { AuthService } from '../services/auth.service';
 export class HomePage {
 
   public products: Product[];
+  public user: User;
 
 
   constructor(private productService: ProductService, private router: Router,
     private toastController: ToastController,
-    private alertController: AlertController,    
-    private authService:AuthService, ) {
-
-    this.products = productService.getProducts();
+    private alertController: AlertController,
+    private authService: AuthService,) {
+      this.user = authService.getCurrentUser()
+      this.products = productService.getProducts();
   }
 
   public getProductByID(clave: string): void {
@@ -31,7 +33,7 @@ export class HomePage {
     )
   }
 
-  public async presentToast(position: 'top' | 'middle' | 'bottom', message:string,callback) {
+  public async presentToast(position: 'top' | 'middle' | 'bottom', message: string, callback) {
     const toast = await this.toastController.create({
       message,
       duration: 2000,
@@ -40,7 +42,7 @@ export class HomePage {
       buttons: [
         {
           text: 'Ver carrito',
-          handler: () => {               
+          handler: () => {
             callback();
           }
         }
@@ -49,11 +51,11 @@ export class HomePage {
 
     await toast.present();
   }
-  
-  
-  public addToCartByID(id:string):void{
+
+
+  public addToCartByID(id: string): void {
     this.productService.addToCartByID(id);
-    this.presentToast('bottom','Se agrego el producto corretamente',()=>{
+    this.presentToast('bottom', 'Se agrego el producto corretamente', () => {
       this.goToCar();
     });
   }
@@ -62,13 +64,13 @@ export class HomePage {
     this.router.navigate(['/view-cart'])
   }
 
-  public addNewProduct():void{
+  public addNewProduct(): void {
     this.router.navigate(['/view-create-product'])
   }
 
   public async logOut() {
     const alert = await this.alertController.create({
-      header:'Atención',
+      header: 'Atención',
       message: '¿Está seguro de salir de la sesión?',
       buttons: [
         {
@@ -86,7 +88,7 @@ export class HomePage {
               console.log(res);
               this.router.navigate(['..']);
             });
-            this.presentToast('bottom',`Adios ${this.authService.getCurrentUser().displayName}`, 300);
+            this.presentToast('bottom', `Adios ${this.user.displayName}`, 300);
           },
         },
       ],
