@@ -24,6 +24,10 @@ const routes: Routes = [
     path: 'view-create-product',
     loadChildren: () => import('./view-create-product/view-create-product.module').then( m => m.ViewCreateProductPageModule)
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
 ];
 
 @NgModule({
