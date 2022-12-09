@@ -1,29 +1,36 @@
 <ion-header>
-  <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
-      </ion-buttons>
-      <ion-title>informacion de  {{product.nombre || ''}}</ion-title>
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">informacion de {{product.nombre || ''}}</ion-title>
   </ion-toolbar>
 
 </ion-header>
 
-<ion-content class="center">
-  <ion-card class="al">
-      <img [src]="product.photo"  width="300px" height="300px" />
-      <ion-card-content class="center">
-          <h2>
-              Descripción: {{product.descripcion || ''}}
-          </h2>
-          <h2>
-              precio: {{product.precio | currency}}
-          </h2>
-      </ion-card-content>
-      <ion-card-subtitle>
-        <ion-chip (click)="addToCart(product)">
-          <ion-icon name="cart-outline"></ion-icon>
-          <ion-label>Agregar al carrito</ion-label>
-        </ion-chip>
-      </ion-card-subtitle>
-  </ion-card>
+<ion-content class="">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-sm="12" size-md="6" size-lg="3">
+        <ion-card class="center">
+          <img [src]="product.photo" width="300px" height="300px" />
+          <ion-card-content class="end">
+            <p class="description">
+              <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore  -->
+              {{product.descripcion || ''}}
+            </p>
+            <ion-label color="success" class="price">
+              {{product.precio | currency}}
+            </ion-label>
+          </ion-card-content>
+          <ion-card-subtitle class="end">
+            <ion-chip (click)="addToCart(product)">
+              <ion-icon name="cart-outline"></ion-icon>
+              <ion-label>Agregar al carrito</ion-label>
+            </ion-chip>
+          </ion-card-subtitle>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

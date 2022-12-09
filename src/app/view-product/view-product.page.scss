@@ -1,16 +1,15 @@
 .center {
-
-  justify-content: center;
-  align-self: center;
-  align-content: center;
-  align-items: center;
+  text-align: center;
   width: 100%;
+  padding:10px;
 }
-.al{
-  display:grid;
-  justify-content: center;
-  align-self: center;
-  align-content: center;
-  align-items: center;
-
+.end{
+  text-align: end;
+}
+.description{
+  font-size: 1.5rem;
+}
+.price{
+  font-size: 1.8rem;
+  font-weight: 700;
 }
