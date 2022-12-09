@@ -39,21 +39,6 @@ export class ViewCartPage implements OnInit {
   ionViewWillUnload(){
     this.productsInCar = [];
   }
-  ionViewWillEnter() {
-    console.log('willEnter 0',this.productsInCar);
-    
-    // this.productsInCar = [];
-    // this.productService.getProducts().subscribe(res => {
-    //   res.forEach(item => {
-    //     let product = item as Product;
-    //     if (product.inCar > 0) {
-    //       this.productsInCar.push(product);
-    //     }
-    //   })
-    //   this.cartPrice = this.calculateCartPrice();
-    // });
-    // console.log('willEnter 1',this.productsInCar);
-  }
 
 
   async removeItem(item: Product) {

@@ -67,8 +67,15 @@ export class ProductService {
     let item = this.firestore.doc(`users/${this.auth.getCurrentUser().uid}/products/${id}`).valueChanges();
     return item;
   }
-  public removeItemInCart(item: Product): void {
-    
+  public async removeItemInCart(item: Product): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.firestore.doc(`users/${this.auth.getCurrentUser().uid}/products/${item.id}`).update({ inCar: 0 })
+        .then(result => {
+          resolve(result);
+        }).catch(err => {
+          reject(err);
+        });
+    });
   }
   public async addToCartByID(item: Product): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -80,13 +87,15 @@ export class ProductService {
         });
     });
   }
-  public subtractToCartByID(item: Product): void {
-   
-  }
-
-
-  public calcularCartPrice(): number {
-    return this.products.reduce((acc, item) => acc + item.precio * item.inCar, 0)
+  public async subtractToCartByID(item: Product): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.firestore.doc(`users/${this.auth.getCurrentUser().uid}/products/${item.id}`).update({ inCar: item.inCar - 1 })
+        .then(result => {
+          resolve(result);
+        }).catch(err => {
+          reject(err);
+        });
+    });
   }
 
 }

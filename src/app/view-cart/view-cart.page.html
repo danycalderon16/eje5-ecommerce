@@ -19,7 +19,7 @@
               <div class="div1"> <img class="product_img" [src]="item.photo" alt=""></div>
               <div class="div2">
                 <ion-text color="primary">
-                  <h2>{{item.nombre}}</h2>
+                  <h2>{{item.nombre}} </h2> <ion-label color="success">{{item.precio | currency}}</ion-label>
                 </ion-text>
                 <p>
                   <ion-text>{{item.descripcion}}</ion-text>
@@ -31,7 +31,7 @@
                 <ion-button fill="outline" shape="round" (click)="addItem(item)">+</ion-button>
               </div>
               <div class="div4">
-                <ion-label color="success">{{item.precio*item.inCar | currency }}</ion-label>
+                <ion-label color="danger">{{item.precio*item.inCar | currency }}</ion-label>
               </div>
             </div>
           </ion-card>
