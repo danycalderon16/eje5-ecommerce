@@ -73,7 +73,7 @@ export class HomePage {
 
   public addToCartByID(item: Product): void {
     this.productService.addToCartByID(item).then(res => {
-      this.presentToast('bottom', 'Se agrego el producto corretamente', this.goToCar());
+      this.presentToast('bottom', 'Se agrego el producto corretamente',()=>this.goToCar());
     });
   }
 
