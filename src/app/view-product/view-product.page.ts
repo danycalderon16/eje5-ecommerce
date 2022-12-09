@@ -10,21 +10,29 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./view-product.page.scss'],
 })
 export class ViewProductPage implements OnInit {
+
   public product : Product
+  public id:string;
 
   constructor(private productService: ProductService,private aroute : ActivatedRoute,private router: Router,
-    private toastController: ToastController) { }
+    private toastController: ToastController) { 
+      this.product = {
+        id:'',nombre:'',inCar:0,photo:'',descripcion:'',precio:0
+      }
+      this.aroute.queryParams.subscribe((params)=>{
+        this.id = params.id;
+        this.productService.getProductByID(params.id).subscribe(item=>{
+          this.product = item as Product;
+          this.product = {id:this.id,...this.product}        
+          if(this.product.photo == null){
+            this.product.photo = 'https://i.stack.imgur.com/l60Hf.png';
+          }
+        });
+      });
+    }
 
   ngOnInit() {
-    this.aroute.queryParams.subscribe((params)=>{
-      console.log(params);
-      
-      this.product = this.productService.getProductByID(params.clave)
-      console.log(this.product)
-      if(this.product.photo == null){
-        this.product.photo = 'https://i.stack.imgur.com/l60Hf.png';
-      }
-    });
+   
   }
 
   public async presentToast(position: 'top' | 'middle' | 'bottom', message:string,callback) {
@@ -47,8 +55,8 @@ export class ViewProductPage implements OnInit {
   }
   
 
-  public addToCartByID(id:string):void{
-    this.productService.addToCartByID(id);
+  public addToCart(item:Product):void{
+    this.productService.addToCartByID(item);
     this.presentToast('bottom','Se agrego el producto corretamente',()=>{
       this.goToCar();
     });

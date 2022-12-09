@@ -73,8 +73,8 @@ export class ViewCartPage implements OnInit {
     this.productService.subtractToCartByID(id);
     this.cartPrice = this.productService.calcularCartPrice()
   }
-  public addItem(id: string) {
-    this.productService.addToCartByID(id);
+  public addItem(item:Product) {
+    this.productService.addToCartByID(item);
     this.cartPrice = this.productService.calcularCartPrice()
   }
 

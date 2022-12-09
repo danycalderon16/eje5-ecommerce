@@ -3,7 +3,7 @@
       <ion-buttons slot="start">
           <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title>informacion de  {{product.nombre}}</ion-title>
+      <ion-title>informacion de  {{product.nombre || ''}}</ion-title>
   </ion-toolbar>
 
 </ion-header>
@@ -13,14 +13,14 @@
       <img [src]="product.photo"  width="300px" height="300px" />
       <ion-card-content class="center">
           <h2>
-              Descripción: {{product.descripcion}}
+              Descripción: {{product.descripcion || ''}}
           </h2>
           <h2>
-              precio: ${{product.precio}}
+              precio: {{product.precio | currency}}
           </h2>
       </ion-card-content>
       <ion-card-subtitle>
-        <ion-chip (click)="addToCartByID(product.id)">
+        <ion-chip (click)="addToCart(product)">
           <ion-icon name="cart-outline"></ion-icon>
           <ion-label>Agregar al carrito</ion-label>
         </ion-chip>

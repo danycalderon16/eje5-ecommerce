@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/producto';
 import { map } from "rxjs/operators";
-import { AngularFirestore } from "@angular/fire/compat/firestore";
+import { AngularFirestore, DocumentSnapshot } from "@angular/fire/compat/firestore";
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -11,23 +11,23 @@ import { AuthService } from './auth.service';
 export class ProductService {
   public products: Product[]
   constructor(private firestore: AngularFirestore,
-    private auth:AuthService) {
+    private auth: AuthService) {
     this.products = [
-      {        
+      {
         nombre: 'Coca-cola',
         descripcion: 'Refresco de 600 ml',
         precio: 32,
         photo: 'https://th.bing.com/th/id/OIP.tPOgjSGAlbpRvl_qL4i1AgAAAA?pid=ImgDet&rs=1',
         inCar: 0
       },
-      {        
+      {
         nombre: 'Pepsi',
         descripcion: 'Refresco pepsi de 600 ml',
         precio: 28,
         photo: 'https://www.movil.farmaciasguadalajara.com/wcsstore/FGCAS/wcs/products/819964_S_1280_F.jpg',
         inCar: 0
       },
-      {        
+      {
         nombre: 'Triki trakes',
         descripcion: 'Deliciosas galletas con chispas sabor a chocolate',
         precio: 15,
@@ -63,12 +63,8 @@ export class ProductService {
   public removeProduct(pos: number) {
     return this.products.splice(pos, 1);
   }
-  public getProductByID(clave: string): Product {
-    let item: Product;
-    item = this.products.find((product) => {
-      return product.id === clave
-    });
-
+  public getProductByID(id: string){
+    let item = this.firestore.doc(`users/${this.auth.getCurrentUser().uid}/products/${id}`).valueChanges();
     return item;
   }
   public removeItemInCart(id: string): void {
@@ -79,13 +75,15 @@ export class ProductService {
     console.log(i);
     this.products[i].inCar = 0;
   }
-  public addToCartByID(id: string): void {
-    let i: number;
-    this.products.forEach((product, index) => {
-      if (product.id === id) i = index;
-    })
-    console.log(i);
-    this.products[i].inCar++;
+  public async addToCartByID(item: Product): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.firestore.doc(`users/${this.auth.getCurrentUser().uid}/products/${item.id}`).update({ inCar: item.inCar + 1 })
+        .then(result => {
+          resolve(result);
+        }).catch(err => {
+          reject(err);
+        });
+    });
   }
   public subtractToCartByID(id: string): void {
     let i: number;

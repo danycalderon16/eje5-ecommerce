@@ -28,7 +28,7 @@
               <div class="div3">
                 <ion-button fill="outline" shape="round" (click)="substractItem(item.id)">-</ion-button>
                 <ion-label>{{item.inCar}}</ion-label>
-                <ion-button fill="outline" shape="round" (click)="addItem(item.id)">+</ion-button>
+                <ion-button fill="outline" shape="round" (click)="addItem(item)">+</ion-button>
               </div>
               <div class="div4">
                 <ion-label color="success">{{item.precio*item.inCar | currency }}</ion-label>

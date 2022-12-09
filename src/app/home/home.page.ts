@@ -21,23 +21,22 @@ export class HomePage {
     private toastController: ToastController,
     private alertController: AlertController,
     private authService: AuthService,) {
-      this.user = authService.getCurrentUser()
-      this.productService.getProducts().subscribe(res => {
-        this.products = res;      
-        if(this.products.length===0){
-          productService.products.forEach(product=>{
-            productService.addProduct(product).then(res=>{
-              console.log(product);              
-            });            
+    this.user = authService.getCurrentUser()
+    this.productService.getProducts().subscribe(res => {
+      this.products = res;
+      if (this.products.length === 0) {
+        productService.products.forEach(product => {
+          productService.addProduct(product).then(res => {
           });
-        }        
-      });
+        });
+      }
+    });
   }
 
-  public getProductByID(clave: string): void {
+  public getProductByID(id: string): void {
     this.router.navigate(['/view-product'],
       {
-        queryParams: { clave: clave }
+        queryParams: { id: id }
       }
     )
   }
@@ -65,17 +64,16 @@ export class HomePage {
       message,
       duration: 2000,
       position,
-      cssClass: 'custom-toast'     
+      cssClass: 'custom-toast'
     });
 
     await toast.present();
   }
 
 
-  public addToCartByID(id: string): void {
-    // this.productService.addToCartByID(id);
-    this.presentToast('bottom', 'Se agrego el producto corretamente', () => {
-      this.goToCar();
+  public addToCartByID(item: Product): void {
+    this.productService.addToCartByID(item).then(res => {
+      this.presentToast('bottom', 'Se agrego el producto corretamente', this.goToCar());
     });
   }
 
