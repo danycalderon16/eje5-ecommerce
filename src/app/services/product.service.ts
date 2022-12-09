@@ -67,13 +67,8 @@ export class ProductService {
     let item = this.firestore.doc(`users/${this.auth.getCurrentUser().uid}/products/${id}`).valueChanges();
     return item;
   }
-  public removeItemInCart(id: string): void {
-    let i: number;
-    this.products.forEach((product, index) => {
-      if (product.id === id) i = index;
-    })
-    console.log(i);
-    this.products[i].inCar = 0;
+  public removeItemInCart(item: Product): void {
+    
   }
   public async addToCartByID(item: Product): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -85,13 +80,8 @@ export class ProductService {
         });
     });
   }
-  public subtractToCartByID(id: string): void {
-    let i: number;
-    this.products.forEach((product, index) => {
-      if (product.id === id) i = index;
-    })
-    console.log(i);
-    this.products[i].inCar--;
+  public subtractToCartByID(item: Product): void {
+   
   }
 
 

@@ -26,7 +26,7 @@
                 </p>
               </div>
               <div class="div3">
-                <ion-button fill="outline" shape="round" (click)="substractItem(item.id)">-</ion-button>
+                <ion-button fill="outline" shape="round" (click)="substractItem(item)">-</ion-button>
                 <ion-label>{{item.inCar}}</ion-label>
                 <ion-button fill="outline" shape="round" (click)="addItem(item)">+</ion-button>
               </div>
@@ -37,7 +37,7 @@
           </ion-card>
         </ion-item>    
         <ion-item-options>
-          <ion-item-option color="danger" (click)="removeItem(item.id)">
+          <ion-item-option color="danger" (click)="removeItem(item)">
             <ion-icon slot="bottom" name="trash" ></ion-icon>
             Eliminar
           </ion-item-option>

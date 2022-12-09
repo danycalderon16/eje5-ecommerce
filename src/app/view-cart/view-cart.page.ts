@@ -8,7 +8,6 @@ import { ProductService } from '../services/product.service';
   templateUrl: './view-cart.page.html',
   styleUrls: ['./view-cart.page.scss'],
 })
-
 export class ViewCartPage implements OnInit {
   public productsInCar: Product[] = [];
 
@@ -16,6 +15,8 @@ export class ViewCartPage implements OnInit {
 
   constructor(private productService: ProductService, private toastController: ToastController, private alertController: AlertController) {
     productService.getProducts().subscribe(res => {
+      
+    this.productsInCar = [];
       res.forEach(item => {
         let product = item as Product;
         if (product.inCar > 0) {
@@ -26,25 +27,36 @@ export class ViewCartPage implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void {    
   }
 
-
-  ionViewWillEnter() {
+  ionViewDidLeave(){
     this.productsInCar = [];
-    this.productService.getProducts().subscribe(res => {
-      res.forEach(item => {
-        let product = item as Product;
-        if (product.inCar > 0) {
-          this.productsInCar.push(product);
-        }
-      })
-    });
+  }
+  ionViewWillLeave(){
+    this.productsInCar = [];
+  }
+  ionViewWillUnload(){
+    this.productsInCar = [];
+  }
+  ionViewWillEnter() {
+    console.log('willEnter 0',this.productsInCar);
+    
+    // this.productsInCar = [];
+    // this.productService.getProducts().subscribe(res => {
+    //   res.forEach(item => {
+    //     let product = item as Product;
+    //     if (product.inCar > 0) {
+    //       this.productsInCar.push(product);
+    //     }
+    //   })
+    //   this.cartPrice = this.calculateCartPrice();
+    // });
+    // console.log('willEnter 1',this.productsInCar);
   }
 
 
-  async removeItem(id: string) {
+  async removeItem(item: Product) {
     const alert = await this.alertController.create({
       header: '¿Está seguro de borrar este prodcuto del carrito?',
       buttons: [
@@ -59,7 +71,7 @@ export class ViewCartPage implements OnInit {
           text: 'Sí',
           role: 'confirm',
           handler: () => {
-            this.removeItemInCart(id);
+            this.removeItemInCart(item);
             this.toast('bottom', 'Se elimino el producto corretamente');
           },
         },
@@ -81,25 +93,24 @@ export class ViewCartPage implements OnInit {
   }
 
 
-  public removeItemInCart(id: string): void {
-    this.productService.removeItemInCart(id);
-    this.cartPrice = this.productService.calcularCartPrice()
+  public removeItemInCart(item: Product): void {
+    this.productService.removeItemInCart(item);
+    this.cartPrice = this.calculateCartPrice()
   }
 
   public calculateCartPrice(): number {
     return this.productsInCar.reduce(function (accumulator, item) {
-
       return accumulator + item.inCar*item.precio;
     }, 0)
   }
 
-  public substractItem(id: string) {
-    this.productService.subtractToCartByID(id);
-    this.cartPrice = this.productService.calcularCartPrice()
+  public substractItem(item: Product) {
+    this.productService.subtractToCartByID(item);
+    this.cartPrice = this.calculateCartPrice()
   }
   public addItem(item: Product) {
     this.productService.addToCartByID(item);
-    this.cartPrice = this.productService.calcularCartPrice()
+    this.cartPrice = this.calculateCartPrice()
   }
 
 }

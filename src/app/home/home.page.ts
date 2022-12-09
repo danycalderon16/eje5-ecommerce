@@ -102,7 +102,6 @@ export class HomePage {
           role: 'confirm',
           handler: () => {
             this.authService.logOut().then(res => {
-              console.log(res);
               this.router.navigate(['login']);
             });
             this.simpleToast('bottom', `Adios ${this.user.displayName}`);
