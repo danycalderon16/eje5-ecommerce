@@ -13,24 +13,21 @@ export class ProductService {
   constructor(private firestore: AngularFirestore,
     private auth:AuthService) {
     this.products = [
-      {
-        id: "1000",
+      {        
         nombre: 'Coca-cola',
         descripcion: 'Refresco de 600 ml',
         precio: 32,
         photo: 'https://th.bing.com/th/id/OIP.tPOgjSGAlbpRvl_qL4i1AgAAAA?pid=ImgDet&rs=1',
         inCar: 0
       },
-      {
-        id: "1001",
+      {        
         nombre: 'Pepsi',
         descripcion: 'Refresco pepsi de 600 ml',
         precio: 28,
         photo: 'https://www.movil.farmaciasguadalajara.com/wcsstore/FGCAS/wcs/products/819964_S_1280_F.jpg',
         inCar: 0
       },
-      {
-        id: "1003",
+      {        
         nombre: 'Triki trakes',
         descripcion: 'Deliciosas galletas con chispas sabor a chocolate',
         precio: 15,
@@ -54,7 +51,7 @@ export class ProductService {
   public async addProduct(product: Product): Promise<any> {
     const id = new Date().valueOf().toString();
     return new Promise((resolve, reject) => {
-      this.firestore.collection(`users/6mnGoaO6v8YjBSqFwbXrugSt6bQ2/products`).add(product)
+      this.firestore.collection(`users/${this.auth.getCurrentUser().uid}/products`).add(product)
         .then(result => {
           resolve(result);
         }).catch(err => {

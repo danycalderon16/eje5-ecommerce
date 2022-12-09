@@ -25,7 +25,11 @@ export class HomePage {
       this.productService.getProducts().subscribe(res => {
         this.products = res;      
         if(this.products.length===0){
-          this.products = productService.products;
+          productService.products.forEach(product=>{
+            productService.addProduct(product).then(res=>{
+              console.log(product);              
+            });            
+          });
         }        
       });
   }
