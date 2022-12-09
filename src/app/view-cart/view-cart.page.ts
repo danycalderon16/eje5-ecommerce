@@ -10,18 +10,39 @@ import { ProductService } from '../services/product.service';
 })
 
 export class ViewCartPage implements OnInit {
-  public productsInCar: Product[];
+  public productsInCar: Product[] = [];
 
   public cartPrice: number;
 
   constructor(private productService: ProductService, private toastController: ToastController, private alertController: AlertController) {
-    // this.productsInCar = productService.getProducts();
-    this.cartPrice = productService.calcularCartPrice()
+    productService.getProducts().subscribe(res => {
+      res.forEach(item => {
+        let product = item as Product;
+        if (product.inCar > 0) {
+          this.productsInCar.push(product);
+        }
+      })
+      this.cartPrice = this.calculateCartPrice();
+    });
   }
 
   ngOnInit(): void {
 
   }
+
+
+  ionViewWillEnter() {
+    this.productsInCar = [];
+    this.productService.getProducts().subscribe(res => {
+      res.forEach(item => {
+        let product = item as Product;
+        if (product.inCar > 0) {
+          this.productsInCar.push(product);
+        }
+      })
+    });
+  }
+
 
   async removeItem(id: string) {
     const alert = await this.alertController.create({
@@ -65,15 +86,18 @@ export class ViewCartPage implements OnInit {
     this.cartPrice = this.productService.calcularCartPrice()
   }
 
-  public calculatecartPrice(): void {
-    this.cartPrice = this.productService.calcularCartPrice()
+  public calculateCartPrice(): number {
+    return this.productsInCar.reduce(function (accumulator, item) {
+
+      return accumulator + item.inCar*item.precio;
+    }, 0)
   }
 
   public substractItem(id: string) {
     this.productService.subtractToCartByID(id);
     this.cartPrice = this.productService.calcularCartPrice()
   }
-  public addItem(item:Product) {
+  public addItem(item: Product) {
     this.productService.addToCartByID(item);
     this.cartPrice = this.productService.calcularCartPrice()
   }
